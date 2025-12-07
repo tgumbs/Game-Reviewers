@@ -1,3 +1,27 @@
+<?PHP
+    session_start();
+    //report errors
+    error_reporting(E_ALL);
+    ini_set('display_errors',1);  
+
+    //connect to the database 
+    try {
+      $conn = new PDO("sqlite:gameReview.db");
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      //echo "Connected successfully to the database";
+    } catch(PDOException $e) {
+      //echo "Connection to the database failed: " . $e->getMessage();
+    } 
+
+    if(isset($_POST['login'])){
+        //handle login
+    }
+    
+    //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
+    //echo '<pre>' . var_export($rows, return: true) . '</pre>';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
