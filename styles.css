@@ -58,6 +58,11 @@ footer {
   text-align: center;
 }
 
+nav a {
+  flex: 1;
+  text-align: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
