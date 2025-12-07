@@ -17,7 +17,7 @@
     if(isset($_POST['login'])){
         //handle login
     }
-    
+
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($rows, return: true) . '</pre>';
 ?>
@@ -53,7 +53,7 @@
 <body>
     <header>
         <nav>
-               <a href="index.html">Home</a>
+               <a href="index.php">Home</a>
                <a href="#search">Search</a>
                <a href="#saved_games">Saved Games</a>
                <a href="login.html">Login</a>
