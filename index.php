@@ -39,7 +39,13 @@
         session_destroy();
         session_start();
     }
-    
+
+    $item = [
+    "name" => "Clair Obscur: Expedition 33",
+    "image" => "/images/Clair_Obscur.jpg",
+    "avg_rating" => 4.5,
+    "reviews_count" => 200
+];
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($rows, return: true) . '</pre>';
 ?>
@@ -50,7 +56,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Reviewers</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         nav {
             display: flex;
@@ -73,9 +79,13 @@
 
 </head>
 <body>
+    <section id="home">
+        <h1>Welcome to Game Reviewers</h1>
+        <p>Your source for honest game reviews and ratings.</p>
+    </section>    
     <header>
         <nav>
-               <a href="index.html">Home</a>
+               <a href="index.php">Home</a>
                <a href="#search">Search</a>
                <a href="#saved_games">Saved Games</a>
                <a href="newGame.php">Post New Game</a>
@@ -90,25 +100,52 @@
     </header>
 
     <main>
-        <section id="home">
-            <h1>Welcome to Game Reviewers</h1>
-            <p>Your source for honest game reviews and ratings.</p>
-        </section>
+
 
         <section id="reviews">
-            <h2>Latest Reviews</h2>
             <article>
-                <h3>Game Title</h3>
-                <p>Review content goes here...</p>
-            </article>
-        </section>
-    </main>
+                <div class="review-card">
+                <h3 class="review-name">Clair Obscur: Expedition 33</h3>    
+                <img src="images/clair_obscur.jpg" alt="Clair Obscur" style="width:120px; height:auto;">
+                    <div class="review-content">
+                        <div class="review-rating">
+                            ★★★★☆
+                            <span class="avg">4.5</span>
+                            <span class="reviews-count">(200 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                <h3 class="review-name">Mystic Quest</h3>
+                <img src="images/mystic_quest.jpg" alt="Mystic Quest" style="width:120px; height:auto;">
+                    <div class="review-content">
+                        <div class="review-rating">
+                            ★★★☆☆
+                            <span class="avg">3.0</span>
+                            <span class="reviews-count">(150 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                <h3 class="review-name">Space Odyssey</h3>
+                <img src="images/space_odyssey.jpg" alt="Space Odyssey" style="width:120px; height:auto;">
+                    <div class="review-content">
+                        <div class="review-rating">
+                            ★★★★★
+                            <span class="avg">5.0</span>
+                            <span class="reviews-count">(300 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+        </article>
+    </section>
+</main>
+<script src="scripts.js"></script>
 
+<footer>
     <form action="index.php" method="POST">
     <input type="button" name="logout" value="Logout"></input>
     </form>
-    <footer>
-        <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
-    </footer>
+</footer>
 </body>
 </html>

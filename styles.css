@@ -11,9 +11,11 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f4f4f4;
+  color: #ffa600;
+  background: linear-gradient(to bottom right, #222222 0%, #474747 40%, #2c2c2c 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 30px;
 }
 
 /* Typography */
@@ -28,7 +30,7 @@ p {
 
 /* Links */
 a {
-  color: #007bff;
+  color: #ffa600;
   text-decoration: none;
 }
 
@@ -43,19 +45,22 @@ a:hover {
   padding: 0 20px;
 }
 
-/* Header */
-header {
-  background-color: #333;
-  color: white;
-  padding: 1rem 0;
+#home{
+  text-align: center;
+  margin: 40px auto;
+  max-width: 800px;
 }
 
-/* Footer */
-footer {
-  background-color: #333;
-  color: white;
-  padding: 1rem 0;
-  text-align: center;
+/* Header */
+header {
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 90%;
+  box-shadow: 0 0 15px #ffa600;
+  text-align: center;  
 }
 
 nav a {
@@ -63,7 +68,63 @@ nav a {
   text-align: center;
 }
 
-/* Responsive Design */
+#reviews article{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.review-card{
+  width: 250px;
+  height: 250px;
+  border: 1px solid #ffa600;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 12px;
+  background: linear-gradient(to bottom right, #474747, #2c2c2c);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.review-card img{
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.review-card .review-name{
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffa600;
+  text-align: center;
+}
+
+footer {
+  background-color: #1a1a1a;
+  padding: 15px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer input[type="submit"] {
+  background-color: #ffcc00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+footer input[type="submit"]:hover {
+  background-color: #e6b800;   /* darker yellow on hover */
+}
+
+
 @media (max-width: 768px) {
   .container {
      padding: 0 10px;
