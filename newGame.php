@@ -14,7 +14,6 @@
       //echo "Connection to the database failed: " . $e->getMessage();
     } 
 
-
     if(isset($_POST['postNewGame'])){
         $exists = $conn->prepare("SELECT COUNT(*) AS `total` FROM games WHERE name=?");
         $exists->execute([$_POST['gameName']]);
@@ -59,6 +58,7 @@
             justify-content: space-around;
             background-color: #333;
             padding: 10px;
+            
         }
 
         nav a {

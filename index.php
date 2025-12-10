@@ -3,7 +3,7 @@
     //report errors
     error_reporting(E_ALL);
     ini_set('display_errors',1);  
-
+    include './src/print.php';
     //connect to the database 
     try {
       $conn = new PDO("sqlite:gameReview.db");
@@ -43,17 +43,6 @@
     $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
     $games->execute([]);
     $games = $games->fetchAll();
-    //pass result from an sql query
-    function printGame($game){
-        echo"
-        <article>
-            <h3>".$game['name']."</h3>
-            <p> Release Date: ".$game['releaseDate']."</p>
-            <p>".$game['bio']."</p>
-            <img src='".$game['picture']."'>
-        </article>  
-        ";
-    }
     
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($rows, return: true) . '</pre>';
@@ -110,7 +99,7 @@
             <p>Your source for honest game reviews and ratings.</p>
         </section>
 
-        <section id="reviews">
+        <section class="reviews">
             <h2>Latest Reviews</h2>
                 <?PHP 
                 foreach($games as $g)

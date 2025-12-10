@@ -3,7 +3,7 @@
     //report errors
     error_reporting(E_ALL);
     ini_set('display_errors',1);  
-
+    include './src/print.php';
     //connect to the database 
     try {
       $conn = new PDO("sqlite:gameReview.db");
@@ -34,9 +34,24 @@
             echo "account ".$_POST['username']." does not exist";   
         }
     }
-    
+  
+    if(isset($_POST['searchCriteria'])){
+        if($_POST['gameName'] == ''){
+            $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+            $games->execute([]);
+            $games = $games->fetchAll();
+        }else{
+            $games = $conn->prepare("SELECT * FROM games WHERE name LIKE ? ORDER BY releaseDate");
+            $games->execute(['%'.$_POST['gameName'].'%']);
+            $games = $games->fetchAll();            
+        }
+    }else{
+        $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+        $games->execute([]);
+        $games = $games->fetchAll();
+    }
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
-    //echo '<pre>' . var_export($rows, return: true) . '</pre>';
+    //echo '<pre>' . var_export($_POST, return: true) . '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -91,11 +106,19 @@
         </section>
 
         <section id="searchGame">
-            <form>
-                Criteria for game search here!<br>
+            <form action="search.php" method="POST">
+                <label for="gameName">Game Name:</label>
+                <input type="text" name="gameName" maxlength="64"><br>
             <input type="submit" name="searchCriteria" value="Search">
             </form>
-            Games here!
+        </section> 
+
+        <section class="reviews">
+            <h2>Latest Reviews</h2>
+                <?PHP 
+                foreach($games as $g)
+                    printGame($g);
+                ?>
         </section>
     </main>
 
