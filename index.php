@@ -39,6 +39,21 @@
         session_destroy();
         session_start();
     }
+
+    $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+    $games->execute([]);
+    $games = $games->fetchAll();
+    //pass result from an sql query
+    function printGame($game){
+        echo"
+        <article>
+            <h3>".$game['name']."</h3>
+            <p> Release Date: ".$game['releaseDate']."</p>
+            <p>".$game['bio']."</p>
+            <img src='".$game['picture']."'>
+        </article>  
+        ";
+    }
     
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($rows, return: true) . '</pre>';
@@ -75,9 +90,9 @@
 <body>
     <header>
         <nav>
-               <a href="index.html">Home</a>
-               <a href="#search">Search</a>
-               <a href="#saved_games">Saved Games</a>
+               <a href="index.php">Home</a>
+               <a href="search.php">Search</a>
+               <a href="savedGames.php">Saved Games</a>
                <a href="newGame.php">Post New Game</a>
                <?PHP
                 if(isset($_SESSION['user']))                    
@@ -97,15 +112,15 @@
 
         <section id="reviews">
             <h2>Latest Reviews</h2>
-            <article>
-                <h3>Game Title</h3>
-                <p>Review content goes here...</p>
-            </article>
+                <?PHP 
+                foreach($games as $g)
+                    printGame($g);
+                ?>
         </section>
     </main>
 
     <form action="index.php" method="POST">
-    <input type="button" name="logout" value="Logout"></input>
+    <input type="submit" name="logout" value="Logout"></input>
     </form>
     <footer>
         <p>&copy; 2025 Game Reviewers. All rights reserved.</p>

@@ -14,36 +14,29 @@
       //echo "Connection to the database failed: " . $e->getMessage();
     } 
 
-
-    if(isset($_POST['postNewGame'])){
-        $exists = $conn->prepare("SELECT COUNT(*) AS `total` FROM games WHERE name=?");
-        $exists->execute([$_POST['gameName']]);
-        $exists = $exists->fetchObject();    
-        if($exists->total == 0){
-            $location = './gamePhotos/'.$_POST['gameName'].'.JPEG';
-            move_uploaded_file($_FILES['photo']['tmp_name'],$location);
-
-            $newGame = $conn->prepare("INSERT INTO games (
-            name,
-            bio,
-            picture,
-            releaseDate
-            )
-            VALUES (?,?,?,?)");
-            $newGame->execute([
-                $_POST['gameName'],
-                $_POST['bio'],
-                $location,
-                $_POST['releaseDate'],
-            ]);
-            echo $_POST['gameName']." was added to games";
+    if(isset($_POST['login'])){
+        //check if username exists by counting the users with that username
+        $stmt = $conn->prepare("SELECT COUNT(*) AS `total` FROM users WHERE username=?");
+        $stmt->execute([$_POST['username']]);
+        $exists = $stmt->fetchObject();
+        //add new user to database
+        if($exists->total == 1){
+            $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
+            $stmt->execute([$_POST['username']]);
+            $user = $stmt->fetch();
+            if($_POST['password'] == $user['password']){
+                echo "Logged in as ".$_POST['username'];
+                $_SESSION['user'] = $_POST['username'];      
+            }else{
+                echo "Incorrect Password";
+            }
         }else{
-            echo "Game has already been posted";
-        }     
+            echo "account ".$_POST['username']." does not exist";   
+        }
     }
+    
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
-    //echo '<pre>' . var_export($_FILES, return: true) . '</pre>';
-    //echo '<pre>' . var_export($_POST, return: true) . '</pre>';
+    //echo '<pre>' . var_export($rows, return: true) . '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -97,30 +90,14 @@
             <p>Your source for honest game reviews and ratings.</p>
         </section>
 
-        <section id="postNewGame">
-            <h2>Post a New Game</h2>
-            <form action="newGame.php" method="POST" enctype="multipart/form-data">
-
-                <label for="gameName">Game Name:</label>
-                <input type="text" name="gameName" maxlength="64" required><br>
-
-                <label for="bio">Bio:</label><br>
-                <textarea name="bio" maxlength="2000" rows="4" cols="50"></textarea><br>
-
-                <label for="releaseDate">Release Date:</label>
-                <input type="date" name="releaseDate" maxlength="16" required><br>
-
-                <label for="photo">Photo (only JPEGs):</label>
-                <input type="file" name="photo" accept=".JPEG,.jpg" value=""><br>
-
-                <input type="submit" name="postNewGame" value="Post New Game">
-
-            </form>
+        <section id="savedGames">
+            here users can see all the games they have reviewed
         </section>
     </main>
 
+    <br>
     <form action="index.php" method="POST">
-    <input type="submit" name="logout" value="Logout"></input>
+        <input type="submit" name="logout" value="Logout"></input>
     </form>
     <footer>
         <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
