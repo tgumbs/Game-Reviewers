@@ -81,6 +81,7 @@
     </main>
 
     <br>
+    <script src="scripts.js"></script>
     <footer>
         <form action="index.php" method="POST">
             <input type="submit" name="logout" value="Logout"></input>

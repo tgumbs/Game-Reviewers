@@ -54,7 +54,7 @@ a:hover {
 /* Header */
 header {
   background-color: #1a1a1a;
-  color: #fff;
+  color: #ffa600;
   padding: 1rem 2rem;
   border-radius: 12px;
   margin: 20px auto;
@@ -177,6 +177,27 @@ footer input[type="submit"]:hover {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+
+#postNewGame{
+  width: 500px;
+  height: 250px;
+  border: 1px solid #ffa600;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 12px auto;
+  background: linear-gradient(to bottom right, #474747, #2c2c2c);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+  max-width: 600px;
+}
+
+#postNewGame form {
+    display:block;
+    text-align: left;
 }
 
 @media (max-width: 768px) {
