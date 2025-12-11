@@ -59,13 +59,26 @@ header {
   border-radius: 12px;
   margin: 20px auto;
   max-width: 90%;
-  box-shadow: 0 0 15px #ffa600;
+  box-shadow: 0 0 15px #ffffff;
   text-align: center;  
 }
 
+nav {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333;
+  padding: 10px;
+}
 nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
   flex: 1;
   text-align: center;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 #reviews {
@@ -115,7 +128,7 @@ footer {
 }
 
 footer input[type="submit"] {
-  background-color: #ffcc00;
+  background-color: #ffa600;
   border: none;
   padding: 8px 16px;
   border-radius: 6px;
@@ -124,9 +137,38 @@ footer input[type="submit"] {
 }
 
 footer input[type="submit"]:hover {
-  background-color: #e6b800;   /* darker yellow on hover */
+  background-color: #ffa600;
 }
 
+#searchGame{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  text-align: center;
+}
+
+#searchGame form{
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ffa600;
+}
+
+#login, #register{
+  max-width: 425px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ffa600;
+}
+
+#loginWelcome, #registerWelcome{
+  text-align: center;
+  margin: 40px auto;
+  max-width: 800px;
+}
 #gameNameLink{
 	background: none;
 	color: inherit;

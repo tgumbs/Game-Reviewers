@@ -45,30 +45,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Reviewers</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        nav {
-            display: flex;
-            justify-content: space-around;
-            background-color: #333;
-            padding: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
-
+    <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
     <header>
+        <section id="savedGamesWelcome">
+            <h1>Posted Game Reviews</h1>
+            <p>View all of the reviews you've posted!</p>
+        </section>
         <nav>
                <a href="index.php">Home</a>
                <a href="search.php">Search</a>
@@ -85,22 +70,13 @@
     </header>
 
     <main>
-        <section id="home">
-            <h1>Welcome to Game Reviewers</h1>
-            <p>Your source for honest game reviews and ratings.</p>
-        </section>
-
-        <section id="savedGames">
-            here users can see all the games they have reviewed
-        </section>
     </main>
 
     <br>
-    <form action="index.php" method="POST">
-        <input type="submit" name="logout" value="Logout"></input>
-    </form>
     <footer>
-        <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
+        <form action="index.php" method="POST">
+            <input type="submit" name="logout" value="Logout"></input>
+        </form>
     </footer>
 </body>
 </html>
