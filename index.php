@@ -3,7 +3,7 @@
     //report errors
     error_reporting(E_ALL);
     ini_set('display_errors',1);  
-
+    include './src/print.php';
     //connect to the database 
     try {
       $conn = new PDO("sqlite:gameReview.db");
@@ -39,6 +39,10 @@
         session_destroy();
         session_start();
     }
+
+    $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+    $games->execute([]);
+    $games = $games->fetchAll();
     
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($rows, return: true) . '</pre>';
@@ -50,7 +54,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Reviewers</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         nav {
             display: flex;
@@ -73,11 +77,15 @@
 
 </head>
 <body>
+    <section id="home">
+        <h1>Welcome to Game Reviewers</h1>
+        <p>Your source for honest game reviews and ratings.</p>
+    </section>    
     <header>
         <nav>
-               <a href="index.html">Home</a>
-               <a href="#search">Search</a>
-               <a href="#saved_games">Saved Games</a>
+               <a href="index.php">Home</a>
+               <a href="search.php">Search</a>
+               <a href="savedGames.php">Saved Games</a>
                <a href="newGame.php">Post New Game</a>
                <?PHP
                 if(isset($_SESSION['user']))                    
@@ -90,25 +98,19 @@
     </header>
 
     <main>
-        <section id="home">
-            <h1>Welcome to Game Reviewers</h1>
-            <p>Your source for honest game reviews and ratings.</p>
-        </section>
-
         <section id="reviews">
-            <h2>Latest Reviews</h2>
-            <article>
-                <h3>Game Title</h3>
-                <p>Review content goes here...</p>
-            </article>
+            <?PHP 
+            foreach($games as $g)
+                printGame($g);
+            ?>
         </section>
     </main>
+<script src="scripts.js"></script>
 
+<footer>
     <form action="index.php" method="POST">
-    <input type="button" name="logout" value="Logout"></input>
+    <input type="submit" name="logout" value="Logout"></input>
     </form>
-    <footer>
-        <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
-    </footer>
+</footer>
 </body>
 </html>
