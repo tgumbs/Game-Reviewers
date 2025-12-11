@@ -1,14 +1,20 @@
+<link rel="stylesheet" href="styles.css">
 <?PHP
     //pass result from an sql query
     function printGame($game){
-        echo"
-        <article>
-            <h3>".$game['name']."</h3>
-            <p> Release Date: ".$game['releaseDate']."</p>
-            <p>".$game['bio']."</p>
-            <img src='".$game['picture']."'>
-        </article>  
-        ";
+        echo'
+            <div class="review-card">
+                <h3 class="review-name">Clair Obscur: Expedition 33</h3>    
+                <img src="images/clair_obscur.jpg" alt="Clair Obscur" style="width:120px; height:auto;">
+                    <div class="review-content">
+                        <div class="review-rating">
+                            ★★★★☆
+                            <span class="avg">4.5</span>
+                            <span class="reviews-count">(200 reviews)</span>
+                        </div>
+                    </div>
+            </div>
+        ';
     } 
     function printGameFull($game, $reviews){
         echo "
@@ -65,6 +71,6 @@
                 <p>".$r['review']."</p>
             </article>
             ";
-        }
-        
+        }  
     }
+?>
