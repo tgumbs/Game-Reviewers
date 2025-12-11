@@ -68,11 +68,14 @@ nav a {
   text-align: center;
 }
 
-#reviews article{
+#reviews {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 30px;
+}
+
+#reviews article{
+  margin-top: 12px;
 }
 
 .review-card{

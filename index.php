@@ -98,16 +98,11 @@
     </header>
 
     <main>
-
-
-        <section class="reviews">
-            <h2>Latest Reviews</h2>
-            <article>
-                <?PHP 
-                foreach($games as $g)
-                    printGame($g);
-                ?>
-            </article>
+        <section id="reviews">
+            <?PHP 
+            foreach($games as $g)
+                printGame($g);
+            ?>
         </section>
     </main>
 <script src="scripts.js"></script>

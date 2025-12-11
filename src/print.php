@@ -3,8 +3,9 @@
     //pass result from an sql query
     function printGame($game){
         echo'
-            <div class="review-card">
-                <h3 class="review-name">Clair Obscur: Expedition 33</h3>    
+            <article>
+                <div class="review-card">
+                <h3 class="review-name">Clair Obscur: Expedition 33</h3>
                 <img src="images/clair_obscur.jpg" alt="Clair Obscur" style="width:120px; height:auto;">
                     <div class="review-content">
                         <div class="review-rating">
@@ -13,7 +14,8 @@
                             <span class="reviews-count">(200 reviews)</span>
                         </div>
                     </div>
-            </div>
+                </div>
+            </article>
         ';
     } 
     function printGameFull($game, $reviews){
