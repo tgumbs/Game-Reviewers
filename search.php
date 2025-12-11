@@ -65,7 +65,10 @@
 </head>
 <body>
     <header>
+        <h1>Welcome to Game Reviewers</h1>
+        <p>Your source for honest game reviews and ratings.</p>
         <nav>
+            
                <a href="index.php">Home</a>
                <a href="search.php">Search</a>
                <a href="savedGames.php">Saved Games</a>
@@ -81,34 +84,28 @@
     </header>
 
     <main>
-        <section id="home">
-            <h1>Welcome to Game Reviewers</h1>
-            <p>Your source for honest game reviews and ratings.</p>
-        </section>
+
 
         <section id="searchGame">
             <form action="search.php" method="POST">
                 <label for="gameName">Game Name:</label>
-                <input type="text" name="gameName" maxlength="64"><br>
-            <input type="submit" name="searchCriteria" value="Search">
+                <input type="text" name="gameName" maxlength="64">
+                <input type="submit" name="searchCriteria" value="Search">
             </form>
         </section> 
 
-        <section class="reviews">
-            <h2>Latest Reviews</h2>
-                <?PHP 
-                foreach($games as $g)
-                    printGame($g);
-                ?>
+        <section id="reviews">
+            <?PHP 
+            foreach($games as $g)
+                printGame($g);
+            ?>
         </section>
     </main>
-
-    <br>
-    <form action="index.php" method="POST">
-    <input type="submit" name="logout" value="Logout"></input>
-    </form>
+    <script src="scripts.js"></script>
     <footer>
-        <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
+        <form action="index.php" method="POST">
+            <input type="submit" name="logout" value="Logout"></input>
+        </form>
     </footer>
 </body>
 </html>

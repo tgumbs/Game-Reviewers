@@ -5,42 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        nav {
-            display: flex;
-            justify-content: space-around;
-            background-color: #333;
-            padding: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="search.php">Search</a>
-        <a href="savedGames.php">Saved Games</a>
-        <a href="login.html">Login</a>
-        <a href="register.html">Sign Up</a> 
-    </nav>
-    <h2>Login</h2>
-    <form action="index.php" method="POST">
-      <input type="text" name="username" placeholder="Username" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <input type="submit" name="login" value="login"></button>
-    </form>
+    <section id="loginWelcome">
 
+    </section>
+    <header>
+        <h1>Login</h1>
+        <p>Access your account to start leaving reviews!</p>
+        <nav>
+            <a href="index.php">Home</a>
+            <a href="search.php">Search</a>
+            <a href="savedGames.php">Saved Games</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Sign Up</a> 
+        </nav>
+    </header>
+    <section id="login">
+        <form action="index.php" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" name="login" value="Login"></button>
+        </form>
+    </section>
+
+<footer>
     <form action="index.php" method="POST">
-      <input type="submit" name="logout" value="Logout"></input>
+    <input type="submit" name="logout" value="Logout"></input>
     </form>
+</footer>
 </body>
 </html>

@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".review-card");
+  const navLinks = document.querySelectorAll("nav a");
+
+  navLinks.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      link.style.color = "#ffcc00"; // change color on hover
+    });
+
+    link.addEventListener("mouseleave", () => {
+      link.style.color = "#ffffff"; // reset to original color
+    });
+  });
 
   cards.forEach(card => {
     card.addEventListener("mouseenter", () => {
