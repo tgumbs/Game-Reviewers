@@ -95,12 +95,11 @@
             </form>
         </section>
     </main>
-
-    <form action="index.php" method="POST">
-    <input type="submit" name="logout" value="Logout"></input>
-    </form>
+    <script src="scripts.js"></script>
     <footer>
-        <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
+        <form action="index.php" method="POST">
+            <input type="submit" name="logout" value="Logout"></input>
+        </form>
     </footer>
 </body>
 </html>
