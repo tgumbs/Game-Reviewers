@@ -13,8 +13,6 @@
     } catch(PDOException $e) {
       //echo "Connection to the database failed: " . $e->getMessage();
     } 
-
-    $game = "Melty Blood Actress Again Current Code"; 
   
     if(isset($_POST['newReview'])){
         $newReview = $conn->prepare("INSERT INTO reviews (
@@ -29,7 +27,7 @@
             $_SESSION['user'],
             $_POST['review'],
             $_POST['score'],
-            $game
+            $_POST['gameName']
             ]);        
     }
     if(isset($_POST['updateReview'])){
@@ -41,11 +39,11 @@
             $_POST['review'],
             $_POST['score'],
             $_SESSION['user'],
-            $game
+            $_POST['gameName']
             ]);  
     }
     $stmt = $conn->prepare("SELECT * FROM games WHERE name=?");
-    $stmt->execute([$game]);
+    $stmt->execute([$_POST['gameName']]);
     $game = $stmt->fetch();
     $stmt = $conn->prepare("SELECT * FROM reviews WHERE game=?");
     $stmt->execute([$game['name']]);

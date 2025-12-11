@@ -45,7 +45,7 @@
     $games = $games->fetchAll();
     
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
-    //echo '<pre>' . var_export($rows, return: true) . '</pre>';
+    //echo '<pre>' . var_export($games, return: true) . '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -79,8 +79,25 @@
     <main>
         <section id="reviews">
             <?PHP 
-            foreach($games as $g)
-                printGame($g);
+            foreach($games as $g){
+                //get avg score  
+                $avg = $conn->prepare("
+                SELECT AVG(score) AS `avgScore`
+                FROM reviews
+                WHERE game=?
+                ");    
+                $avg->execute([$g['name']]);                
+                $avg = $avg->fetchObject();                
+                //get rev amt
+                $reviewAMT = $conn->prepare("
+                SELECT COUNT(*) AS `total` 
+                FROM reviews 
+                WHERE game=?");
+                $reviewAMT->execute([$g['name']]);
+                $reviewAMT = $reviewAMT->fetchObject();
+                //print game              
+                printGame($g,$reviewAMT->total,$avg->avgScore);                
+            }
             ?>
         </section>
     </main>

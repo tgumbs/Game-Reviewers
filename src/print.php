@@ -1,20 +1,25 @@
 <link rel="stylesheet" href="styles.css">
 <?PHP
     //pass result from an sql query
-    function printGame($game){
+    function printGame($game, $reviewAMT, $avgScore){
         echo'
             <article>
+                <form action="game.php" method="POST">
+                <input type="hidden" name="gameName" value="'.$game['name'].'">
+                <button type="submit" name="gameNameLink" id="gameNameLink" value="'.$game['name'].'">                     
                 <div class="review-card">
-                <h3 class="review-name">Clair Obscur: Expedition 33</h3>
-                <img src="images/clair_obscur.jpg" alt="Clair Obscur" style="width:120px; height:auto;">
+                <h3 class="review-name">'.$game['name'].'</h3>
+                <img src="'.$game['picture'].'" alt="'.$game['name'].'" style="width:120px; height:auto;">
                     <div class="review-content">
                         <div class="review-rating">
                             ★★★★☆
-                            <span class="avg">4.5</span>
-                            <span class="reviews-count">(200 reviews)</span>
+                            <span class="avg">'.$avgScore.'</span>
+                            <span class="reviews-count">('.$reviewAMT.' reviews)</span>
                         </div>
                     </div>
                 </div>
+                </button>
+                </form>
             </article>
         ';
     } 
@@ -45,6 +50,7 @@
             if($hasMadeReview){
                 echo "
                 <form action='game.php' method='POST' class='makeReview'>
+                    <input type='hidden' name='gameName' value='".$game['name']."'>
                     <label for='score'>Score</label>
                     <input type='number' name='score' maxlength='1' max='5' value=".$usersReview['score']." required><br> 
                     <label for='review'>Review</label><br>
@@ -55,6 +61,7 @@
             }else{
                 echo "
                 <form action='game.php' method='POST' class='makeReview'>
+                    <input type='hidden' name='gameName' value='".$game['name']."'>
                     <label for='score'>Score</label>
                     <input type='number' name='score' maxlength='1' max='5' value='' required><br> 
                     <label for='review'>Review</label><br>

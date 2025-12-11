@@ -94,11 +94,29 @@
             </form>
         </section> 
 
-        <section id="reviews">
-            <?PHP 
-            foreach($games as $g)
-                printGame($g);
-            ?>
+        <section class="reviews">
+            <h2>Latest Reviews</h2>
+                <?PHP 
+            foreach($games as $g){
+                //get avg score  
+                $avg = $conn->prepare("
+                SELECT AVG(score) AS `avgScore`
+                FROM reviews
+                WHERE game=?
+                ");    
+                $avg->execute([$g['name']]);                
+                $avg = $avg->fetchObject();                
+                //get rev amt
+                $reviewAMT = $conn->prepare("
+                SELECT COUNT(*) AS `total` 
+                FROM reviews 
+                WHERE game=?");
+                $reviewAMT->execute([$g['name']]);
+                $reviewAMT = $reviewAMT->fetchObject();
+                //print game              
+                printGame($g,$reviewAMT->total,$avg->avgScore);                
+            }
+                ?>
         </section>
     </main>
     <script src="scripts.js"></script>
