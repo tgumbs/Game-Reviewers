@@ -54,7 +54,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Reviewers</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         nav {
             display: flex;
@@ -77,6 +77,10 @@
 
 </head>
 <body>
+    <section id="home">
+        <h1>Welcome to Game Reviewers</h1>
+        <p>Your source for honest game reviews and ratings.</p>
+    </section>    
     <header>
         <nav>
                <a href="index.php">Home</a>
@@ -94,25 +98,24 @@
     </header>
 
     <main>
-        <section id="home">
-            <h1>Welcome to Game Reviewers</h1>
-            <p>Your source for honest game reviews and ratings.</p>
-        </section>
+
 
         <section class="reviews">
             <h2>Latest Reviews</h2>
+            <article>
                 <?PHP 
                 foreach($games as $g)
                     printGame($g);
                 ?>
+            </article>
         </section>
     </main>
+<script src="scripts.js"></script>
 
+<footer>
     <form action="index.php" method="POST">
     <input type="submit" name="logout" value="Logout"></input>
     </form>
-    <footer>
-        <p>&copy; 2025 Game Reviewers. All rights reserved.</p>
-    </footer>
+</footer>
 </body>
 </html>
