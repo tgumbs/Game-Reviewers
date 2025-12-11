@@ -13,27 +13,6 @@
     } catch(PDOException $e) {
       //echo "Connection to the database failed: " . $e->getMessage();
     } 
-
-    if(isset($_POST['login'])){
-        //check if username exists by counting the users with that username
-        $stmt = $conn->prepare("SELECT COUNT(*) AS `total` FROM users WHERE username=?");
-        $stmt->execute([$_POST['username']]);
-        $exists = $stmt->fetchObject();
-        //add new user to database
-        if($exists->total == 1){
-            $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
-            $stmt->execute([$_POST['username']]);
-            $user = $stmt->fetch();
-            if($_POST['password'] == $user['password']){
-                echo "Logged in as ".$_POST['username'];
-                $_SESSION['user'] = $_POST['username'];      
-            }else{
-                echo "Incorrect Password";
-            }
-        }else{
-            echo "account ".$_POST['username']." does not exist";   
-        }
-    }
   
     if(isset($_POST['searchCriteria'])){
         if($_POST['gameName'] == ''){
@@ -41,15 +20,17 @@
             $games->execute([]);
             $games = $games->fetchAll();
         }else{
-            $games = $conn->prepare("SELECT * FROM games WHERE name LIKE ? ORDER BY releaseDate");
+            $games = $conn->prepare("SELECT * FROM games WHERE name LIKE ? ORDER BY releaseDate des");
             $games->execute(['%'.$_POST['gameName'].'%']);
-            $games = $games->fetchAll();            
+            $games = $games->fetchAll();
+            echo $e->getMessage();            
         }
     }else{
         $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
         $games->execute([]);
         $games = $games->fetchAll();
     }
+
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($_POST, return: true) . '</pre>';
 ?>

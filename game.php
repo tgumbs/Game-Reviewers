@@ -3,7 +3,7 @@
     //report errors
     error_reporting(E_ALL);
     ini_set('display_errors',1);  
-
+    include './src/print.php';
     //connect to the database 
     try {
       $conn = new PDO("sqlite:gameReview.db");
@@ -14,35 +14,43 @@
       //echo "Connection to the database failed: " . $e->getMessage();
     } 
 
-
-    if(isset($_POST['postNewGame'])){
-        $exists = $conn->prepare("SELECT COUNT(*) AS `total` FROM games WHERE name=?");
-        $exists->execute([$_POST['gameName']]);
-        $exists = $exists->fetchObject();    
-        if($exists->total == 0){
-            $location = './gamePhotos/'.$_POST['gameName'].'.JPEG';
-            move_uploaded_file($_FILES['photo']['tmp_name'],$location);
-
-            $newGame = $conn->prepare("INSERT INTO games (
-            name,
-            bio,
-            picture,
-            releaseDate
-            )
-            VALUES (?,?,?,?)");
-            $newGame->execute([
-                $_POST['gameName'],
-                $_POST['bio'],
-                $location,
-                $_POST['releaseDate'],
-            ]);
-            echo $_POST['gameName']." was added to games";
-        }else{
-            echo "Game has already been posted";
-        }     
+    $game = "Melty Blood Actress Again Current Code"; 
+  
+    if(isset($_POST['newReview'])){
+        $newReview = $conn->prepare("INSERT INTO reviews (
+                reviewer,
+                review,
+                score,
+                game
+                )
+                VALUES (?,?,?,?)"
+            );
+        $newReview->execute([
+            $_SESSION['user'],
+            $_POST['review'],
+            $_POST['score'],
+            $game
+            ]);        
     }
+    if(isset($_POST['updateReview'])){
+        $updateReview = $conn->prepare("UPDATE reviews
+                SET review=?, score=?
+                WHERE reviewer=? AND game=?"
+            );
+        $updateReview->execute([
+            $_POST['review'],
+            $_POST['score'],
+            $_SESSION['user'],
+            $game
+            ]);  
+    }
+    $stmt = $conn->prepare("SELECT * FROM games WHERE name=?");
+    $stmt->execute([$game]);
+    $game = $stmt->fetch();
+    $stmt = $conn->prepare("SELECT * FROM reviews WHERE game=?");
+    $stmt->execute([$game['name']]);
+    $reviews = $stmt->fetchAll();  
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
-    //echo '<pre>' . var_export($_FILES, return: true) . '</pre>';
     //echo '<pre>' . var_export($_POST, return: true) . '</pre>';
 ?>
 
@@ -97,28 +105,16 @@
             <p>Your source for honest game reviews and ratings.</p>
         </section>
 
-        <section id="postNewGame">
-            <h2>Post a New Game</h2>
-            <form action="newGame.php" method="POST" enctype="multipart/form-data">
+        <section id="searchGame">
 
-                <label for="gameName">Game Name:</label>
-                <input type="text" name="gameName" maxlength="64" required><br>
+        </section> 
 
-                <label for="bio">Bio:</label><br>
-                <textarea name="bio" maxlength="2000" rows="4" cols="50"></textarea><br>
-
-                <label for="releaseDate">Release Date:</label>
-                <input type="date" name="releaseDate" maxlength="16" required><br>
-
-                <label for="photo">Photo (only JPEGs):</label>
-                <input type="file" name="photo" accept=".JPEG,.jpg" value=""><br>
-
-                <input type="submit" name="postNewGame" value="Post New Game">
-
-            </form>
+        <section class="reviews">
+                <?PHP printGameFull($game, $reviews);?>
         </section>
     </main>
 
+    <br>
     <form action="index.php" method="POST">
     <input type="submit" name="logout" value="Logout"></input>
     </form>
