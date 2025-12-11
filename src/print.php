@@ -11,9 +11,19 @@
                 <h3 class="review-name">'.$game['name'].'</h3>
                 <img src="'.$game['picture'].'" alt="'.$game['name'].'" style="width:120px; height:auto;">
                     <div class="review-content">
-                        <div class="review-rating">
-                            ★★★★☆
-                            <span class="avg">'.$avgScore.'</span>
+                        <div class="review-rating">';
+                        if($avgScore >= 4.5){
+                            echo '★★★★★';
+                        }else if($avgScore < 4.5 && $avgScore >= 3.5){
+                            echo '★★★★☆';
+                        }else if($avgScore < 3.5 && $avgScore >= 2.5){
+                            echo '★★★☆☆';
+                        }else if($avgScore < 2.5 && $avgScore >= 1.5){
+                            echo '★★☆☆☆';
+                        }else {
+                            echo '★☆☆☆☆';
+                        }
+               echo        '<span class="avg">'.$avgScore.'</span>
                             <span class="reviews-count">('.$reviewAMT.' reviews)</span>
                         </div>
                     </div>

@@ -40,7 +40,7 @@
         session_start();
     }
 
-    $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+    $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate DESC");
     $games->execute([]);
     $games = $games->fetchAll();
     

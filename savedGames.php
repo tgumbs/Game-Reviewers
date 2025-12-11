@@ -3,6 +3,7 @@
     //report errors
     error_reporting(E_ALL);
     ini_set('display_errors',1);  
+    include './src/print.php';
 
     //connect to the database 
     try {
@@ -14,27 +15,11 @@
       //echo "Connection to the database failed: " . $e->getMessage();
     } 
 
-    if(isset($_POST['login'])){
-        //check if username exists by counting the users with that username
-        $stmt = $conn->prepare("SELECT COUNT(*) AS `total` FROM users WHERE username=?");
-        $stmt->execute([$_POST['username']]);
-        $exists = $stmt->fetchObject();
-        //add new user to database
-        if($exists->total == 1){
-            $stmt = $conn->prepare("SELECT * FROM users WHERE username=?");
-            $stmt->execute([$_POST['username']]);
-            $user = $stmt->fetch();
-            if($_POST['password'] == $user['password']){
-                echo "Logged in as ".$_POST['username'];
-                $_SESSION['user'] = $_POST['username'];      
-            }else{
-                echo "Incorrect Password";
-            }
-        }else{
-            echo "account ".$_POST['username']." does not exist";   
-        }
-    }
-    
+
+    $games = $conn->prepare("SELECT * FROM reviews r, games g WHERE r.game=g.name AND r.reviewer=? ORDER BY releaseDate DESC");
+    $games->execute([$_SESSION['user']]);
+    $games = $games->fetchAll();
+
     //plug an array in as the first argument in var_exports to print the whole array. Useful for things like $_POST, $_SESSION and database query results
     //echo '<pre>' . var_export($rows, return: true) . '</pre>';
 ?>
@@ -52,7 +37,7 @@
     <header>
         <section id="savedGamesWelcome">
             <h1>Posted Game Reviews</h1>
-            <p>View all of the reviews you've posted!</p>
+            <p>View all of your Reviews!</p>
         </section>
         <nav>
                <a href="index.php">Home</a>
@@ -70,6 +55,29 @@
     </header>
 
     <main>
+        <section id="reviews">
+            <?PHP 
+            foreach($games as $g){
+                //get avg score  
+                $avg = $conn->prepare("
+                SELECT AVG(score) AS `avgScore`
+                FROM reviews
+                WHERE game=?
+                ");    
+                $avg->execute([$g['name']]);                
+                $avg = $avg->fetchObject();                
+                //get rev amt
+                $reviewAMT = $conn->prepare("
+                SELECT COUNT(*) AS `total` 
+                FROM reviews 
+                WHERE game=?");
+                $reviewAMT->execute([$g['name']]);
+                $reviewAMT = $reviewAMT->fetchObject();
+                //print game              
+                printGame($g,$reviewAMT->total,$avg->avgScore);                
+            }
+            ?>
+        </section>
     </main>
 
     <br>

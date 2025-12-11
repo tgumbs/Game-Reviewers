@@ -16,17 +16,16 @@
   
     if(isset($_POST['searchCriteria'])){
         if($_POST['gameName'] == ''){
-            $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+            $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate DESC");
             $games->execute([]);
             $games = $games->fetchAll();
         }else{
-            $games = $conn->prepare("SELECT * FROM games WHERE name LIKE ? ORDER BY releaseDate des");
+            $games = $conn->prepare("SELECT * FROM games WHERE name LIKE ? ORDER BY releaseDate DESC");
             $games->execute(['%'.$_POST['gameName'].'%']);
-            $games = $games->fetchAll();
-            echo $e->getMessage();            
+            $games = $games->fetchAll();           
         }
     }else{
-        $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate");
+        $games = $conn->prepare("SELECT * FROM games ORDER BY releaseDate DESC");
         $games->execute([]);
         $games = $games->fetchAll();
     }
@@ -59,6 +58,10 @@
         nav a:hover {
             text-decoration: underline;
         }
+
+        h2{
+            text-align: center;
+        }
     </style>
 
 
@@ -85,7 +88,7 @@
 
     <main>
 
-
+        <h2>Search Games</h2>
         <section id="searchGame">
             <form action="search.php" method="POST">
                 <label for="gameName">Game Name:</label>
@@ -94,8 +97,8 @@
             </form>
         </section> 
 
-        <section class="reviews">
-            <h2>Latest Reviews</h2>
+        <section id="reviews">
+            
                 <?PHP 
             foreach($games as $g){
                 //get avg score  
